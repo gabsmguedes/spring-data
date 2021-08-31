@@ -7,24 +7,27 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cargos")
+@Table(name = "unidade_trabalho")
 @Getter
 @Setter
-public class Cargo {
+public class UnidadeTrabalho {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
+    private String endereco;
 
-    @OneToMany(mappedBy = "cargo")
+    @ManyToMany(mappedBy = "unidadeTrabalhos", fetch = FetchType.EAGER)
     private List<Funcionario> funcionarios;
 
     @Override
     public String toString() {
-        return "Cargo{" +
+        return "UnidadeTrabalho{" +
                 "id=" + id +
                 ", descricao='" + descricao + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", funcionarios=" + funcionarios +
                 '}';
     }
 }
