@@ -5,6 +5,7 @@ import br.com.alura.spring.data.repository.CargoRepository;
 import br.com.alura.spring.data.service.CrudCardService;
 import br.com.alura.spring.data.service.CrudFuncionarioService;
 import br.com.alura.spring.data.service.CrudUnidadeTrabalhoService;
+import br.com.alura.spring.data.service.RelatoriosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,12 +19,16 @@ public class SpringDataApplication implements CommandLineRunner {
     private final CrudCardService crudCardService;
     private final CrudFuncionarioService crudFuncionarioService;
     private final CrudUnidadeTrabalhoService crudUnidadeTrabalhoService;
+    private final RelatoriosService relatoriosService;
+
     private Boolean system = true;
 
-    public SpringDataApplication(CrudCardService crudCardService, CrudFuncionarioService crudFuncionarioService, CrudUnidadeTrabalhoService crudUnidadeTrabalhoService) {
+    public SpringDataApplication(CrudCardService crudCardService, CrudFuncionarioService crudFuncionarioService,
+                                 CrudUnidadeTrabalhoService crudUnidadeTrabalhoService, RelatoriosService relatoriosService) {
         this.crudCardService = crudCardService;
         this.crudFuncionarioService = crudFuncionarioService;
         this.crudUnidadeTrabalhoService = crudUnidadeTrabalhoService;
+        this.relatoriosService = relatoriosService;
     }
 
     public static void main(String[] args) {
@@ -40,6 +45,7 @@ public class SpringDataApplication implements CommandLineRunner {
             System.out.println("1 - Cargo");
             System.out.println("2 - Funcionario");
             System.out.println("3 - Unidade Trabalho");
+            System.out.println("4 - Relatorios");
 
             int action = scanner.nextInt();
             switch (action) {
@@ -48,8 +54,13 @@ public class SpringDataApplication implements CommandLineRunner {
                     break;
                 case 2:
                     crudFuncionarioService.inicial(scanner);
+                    break;
                 case 3:
                     crudUnidadeTrabalhoService.inicial(scanner);
+                    break;
+                case 4:
+                    relatoriosService.inicial(scanner);
+                    break;
                 default:
                     system = false;
                     break;

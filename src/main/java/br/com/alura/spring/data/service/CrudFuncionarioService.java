@@ -115,7 +115,7 @@ public class CrudFuncionarioService {
         funcionario.setSalario(scanner.nextBigDecimal());
 
         System.out.println("Novo Data da contratação");
-        funcionario.setDataContratacao(LocalDate.parse(scanner.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        funcionario.setDataContratacao(LocalDate.parse(scanner.next(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
 
         System.out.println("Novo cargoId");
         funcionario.setCargo(cargoRepository.findById(scanner.nextInt()).get());
