@@ -5,6 +5,10 @@ import br.com.alura.spring.data.model.UnidadeTrabalho;
 import br.com.alura.spring.data.repository.CargoRepository;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
 import br.com.alura.spring.data.repository.UnidadeTrabalhoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -44,7 +48,7 @@ public class CrudFuncionarioService {
                     atualizar(scanner);
                     break;
                 case 3:
-                    visualizar();
+                    visualizar(scanner);
                     break;
                 case 4:
                     deletar(scanner);
@@ -124,8 +128,14 @@ public class CrudFuncionarioService {
         System.out.println("Funcionario foi salvo com sucesso!");
     }
 
-    private void visualizar() {
-        Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+    private void visualizar(Scanner scanner) {
+        System.out.println("Qual pagina vc deseja visualizar?");
+        Integer page = scanner.nextInt();
+        Pageable pageable = PageRequest.of(page, 2, Sort.by(Sort.Direction.ASC, "nome"));
+        Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
+        System.out.println(funcionarios);
+        System.out.println("Pagina atual: "  + funcionarios.getNumber());
+        System.out.println("Total elementos: "  + funcionarios.getTotalElements());
         funcionarios.forEach(funcionario -> System.out.println(funcionario));
     }
 
